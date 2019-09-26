@@ -34,7 +34,7 @@ if ($num_rows = $SQL->num_rows($all_comments))
     $currentPage                = ig('page') ? g('page', 'int') : 1;
     $Pager                      = new Pagination($perpage, $num_rows, $currentPage);
     $start                      = $Pager->getStartRow();
-    $linkgoto                   = $cinfig['siteurl'] . 'index.php?cp=comment_manager';
+    $linkgoto                   = $config['siteurl'] . 'index.php?cp=comment_manager';
     $page_nums                  = $Pager->print_nums($linkgoto);
     $comments_query['LIMIT']    = "$start, $perpage";
     $all_comments               = $SQL->build($comments_query);

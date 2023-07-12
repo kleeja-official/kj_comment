@@ -1,33 +1,37 @@
 <h2>{olang.COMNTS}</h2>
 <hr>
-<table class="table table-bordered">
-    <thead>
-      <tr>
-        <th scope="col">id</th>
-        <th scope="col">{lang.USER}</th>
-        <th scope="col">{olang.COMNT}</th>
-        <th scope="col">{lang.FILE}</th>
-        <th scope="col">{lang.TIME}</th>
-        <th scope="col">{lang.DELETE}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <LOOP NAME="comments">
-      <tr>
-        <th scope="row">{{id}}</th>
-        <td><a target="_blank" href="../ucp.php?go=fileuser&id={{user}}">{{name}}</a></td>
-        <td>{{comment}}</td>
-        <td><a target="_blank" href="../do.php?id={{file_id}}">{{real_filename}}</a></td>
-        <td>{{time}}</td>
-        <td><small><form action="{delFormAction}" method="POST">
-            {form_key}
-        <input type="hidden" name="file_id" value="{{file_id}}">
-        <input type="hidden" name="admin_form" value="1">
-        <input type="hidden" name="comment_id" value="{{id}}">
-        <input class="btn btn-danger" type="submit" name="del" value="{lang.DELETE}">
-    </form></small></td>
-      </tr>
-      </LOOP>
-    </tbody>
-  </table>
-  {page_nums}
+<IF NAME="no_results">
+	<div class="alert alert-info">{lang.NOTHING}</div>
+<ELSE>
+	<table class="table table-bordered">
+		<thead>
+		  <tr>
+			<th scope="col">id</th>
+			<th scope="col">{lang.USER}</th>
+			<th scope="col">{olang.COMNT}</th>
+			<th scope="col">{lang.FILE}</th>
+			<th scope="col">{lang.TIME}</th>
+			<th scope="col">{lang.DELETE}</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <LOOP NAME="comments">
+		  <tr>
+			<th scope="row">{{id}}</th>
+			<td><a target="_blank" href="../ucp.php?go=fileuser&id={{user}}">{{name}}</a></td>
+			<td>{{comment}}</td>
+			<td><a target="_blank" href="../do.php?id={{file_id}}">{{real_filename}}</a></td>
+			<td>{{time}}</td>
+			<td><small><form action="{delFormAction}" method="POST">
+				{form_key}
+			<input type="hidden" name="file_id" value="{{file_id}}">
+			<input type="hidden" name="admin_form" value="1">
+			<input type="hidden" name="comment_id" value="{{id}}">
+			<input class="btn btn-danger" type="submit" name="del" value="{lang.DELETE}">
+		</form></small></td>
+		  </tr>
+		  </LOOP>
+		</tbody>
+	  </table>
+	  {page_nums}
+</IF>

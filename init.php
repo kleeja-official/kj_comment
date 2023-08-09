@@ -21,7 +21,7 @@ $kleeja_plugin['kj_comment']['information'] = [
     // Who wrote this plugin?
     'plugin_developer' => 'Kleeja Team',
     // This plugin version
-    'plugin_version' => '1.0',
+    'plugin_version' => '1.0.1',
     // Explain what is this plugin, why should I use it?
     'plugin_description' => [
         'en' => 'Add Comments To Files',
@@ -148,18 +148,14 @@ $kleeja_plugin['kj_comment']['functions'] = [
             return;
         }
 
-        $have_comments = count($args['comments']);
-
         $formAction    = $config['siteurl'] . 'ucp.php?go=comment&action=add';
         $delFormAction = $config['siteurl'] . 'ucp.php?go=comment&action=del';
         $form_key      = kleeja_add_form_key('comment_for_' . $usrcp->name());
         $is_login      = $usrcp->name();
 
         $tpl->assign('is_login', $is_login);
-        $tpl->assign('our_File_ID', $args['file_info']['id']);
         $tpl->assign('formAction', $formAction);
         $tpl->assign('delFormAction', $delFormAction);
-        $tpl->assign('have_comments', $have_comments);
         $tpl->assign('form_key', $form_key);
         $theFooter = $args['footer'];
         $footer = $tpl->display('comment', dirname(__FILE__));

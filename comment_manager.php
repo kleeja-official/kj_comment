@@ -8,6 +8,8 @@ if (! defined('IN_ADMIN'))
 $stylee     = 'comment_manager';
 $styleePath = dirname(__FILE__);
 
+$no_results = false;
+
 $comments_query = 
     [
         'SELECT'  => 'c.id , c.user , c.comment , c.file_id , c.time , u.name , f.real_filename',
@@ -34,7 +36,7 @@ if ($num_rows = $SQL->num_rows($all_comments))
     $currentPage                = ig('page') ? g('page', 'int') : 1;
     $Pager                      = new Pagination($perpage, $num_rows, $currentPage);
     $start                      = $Pager->getStartRow();
-    $linkgoto                   = $config['siteurl'] . 'index.php?cp=comment_manager';
+    $linkgoto                   = basename(ADMIN_PATH) . '?cp=comment_manager';
     $page_nums                  = $Pager->print_nums($linkgoto);
     $comments_query['LIMIT']    = "$start, $perpage";
     $all_comments               = $SQL->build($comments_query);
@@ -53,5 +55,10 @@ if ($num_rows = $SQL->num_rows($all_comments))
         $comments[]      = $cmnt;
     }
 }
+else
+{
+	$no_results = true;
+}
+
 $delFormAction = $config['siteurl'] . 'ucp.php?go=comment&action=del';
 $form_key      = kleeja_add_form_key('comment_for_' . $usrcp->name());
